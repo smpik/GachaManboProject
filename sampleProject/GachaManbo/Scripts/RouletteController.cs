@@ -66,6 +66,8 @@ public class RouletteController : MonoBehaviour
 
 	private RequestInfoStruct Request;
 
+	private SugorokuController SugorokuControllerInstance;
+
 	private int RouletteOnMasuIdThisCycle;//今周期に光らせるマスのID
 	private int RouletteOnMasuIdBeforeCycle;//前周期で光らせたマスのID
 	private uint RouletteTimer;//ルーレット残り時間を示すタイマー
@@ -78,6 +80,8 @@ public class RouletteController : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
+		SugorokuControllerInstance = GameObject.Find("SugorokuMasu").GetComponent<SugorokuController>();
+
 		generateStructInstance();		//各構造体のインスタンス生成
 
 		initMasuInfo();					//各マスの情報初期化
@@ -562,7 +566,8 @@ public class RouletteController : MonoBehaviour
 		{
 			ClearRouletteRequest();//ルーレット要求をクリアする
 			setWaitRequest();//待ち要求セット
-			Debug.Log("ルーレット結果" + getRouletteResultMasuName());//ルーレット結果マスをすごろくに渡す
+			SugorokuControllerInstance.JudgeSugorokuStart(getRouletteResultMasuName());//すごろくにルーレット結果を渡す
+			Debug.Log("ルーレット結果"+getRouletteResultMasuName()+"を渡した");
 		}
 
 		if((Request.Wait==true) && (WaitTimer <= 0))//待ち状態が終わったら
