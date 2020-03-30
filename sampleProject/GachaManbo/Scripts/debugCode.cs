@@ -33,5 +33,8 @@ public class debugCode : MonoBehaviour
 		sc.JudgeSugorokuStart("3StepON");
 	}
 
-
+	public void setJackpotIsFinished()
+	{
+		sc.SetFlagJackpotIsFinished();
+	}
 }

@@ -11,11 +11,15 @@ public class RouletteStockManager : MonoBehaviour
 	private uint RouletteStock;
 
 	private RouletteController RouletteController;
+	private SugorokuController SugorokuController;
+	private CoinEventController CoinEventController;
 
 	// Start is called before the first frame update
 	void Start()
     {
 		RouletteController = GameObject.Find("RouletteMasu").GetComponent<RouletteController>();
+		SugorokuController = GameObject.Find("SugorokuMasu").GetComponent<SugorokuController>();
+		CoinEventController = GameObject.Find("EnterCoinGate").GetComponent<CoinEventController>();
 	}
 
     // Update is called once per frame
@@ -28,10 +32,11 @@ public class RouletteStockManager : MonoBehaviour
 
 		if(RouletteStock > STOCK_MIN)
 		{   //ストックがあるなら
-			if (RouletteController.GetPermitRouletteRequest() == true)
+			if (isRouletteRequestOk() == true)
 			{   //ルーレット要求が許可されているなら
 				RouletteController.SetRouletteRequest();//ルーレット要求
 				decrementRouletteStock();//要求したのでストックを減らす
+				Debug.Log("ルーレット要求");
 			}
 		}
     }
@@ -54,6 +59,24 @@ public class RouletteStockManager : MonoBehaviour
 		}
 
 		ClearRouletteStockRequest();//ストックをカウントしたのでストック要求をクリア
+	}
+	/* ルーレット要求許可判定	*/
+	private bool isRouletteRequestOk()
+	{
+		bool ret = false;
+
+		bool roulette = RouletteController.GetRouletteIsReadyOk();//ルーレットが準備OKかを取得
+		bool sugoroku = SugorokuController.GetSugorokuIsReadyOk();//すごろくが準備OKかを取得
+		bool coinEvent = CoinEventController.GetCoinEventIsReadyOk();//コインイベントが準備OKかを取得
+
+		if((roulette==true)
+			&&(sugoroku==true)
+			&&(coinEvent==true) )
+		{
+			ret = true;
+		}
+
+		return ret;
 	}
 
 	//==============================================================================//

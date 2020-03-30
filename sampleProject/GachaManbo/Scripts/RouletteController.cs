@@ -41,7 +41,8 @@ public class RouletteController : MonoBehaviour
 	private struct MasuInfoStruct
 	{
 		public GameObject NameOnObject;		//ONのほうのオブジェクト
-		public GameObject NameOffObject;	//OFFのほうのオブジェクト
+		public GameObject NameOffObject;    //OFFのほうのオブジェクト
+		public GameObject NameExcludeObject;//除外表現用のオブジェクト
 		public ACTION_PATTERN ActionState;	//状態1。大きい状態(ルーレットマスのふるまいに何が要求されているか)
 		public bool DisplayState;			//状態2。小さい状態(点灯/消灯。DisplayState=true ⇒ NameON=true、NameOFF=false)
 		public bool Excluded;				//除外されているかを示すフラグ(trueなら除外されているマス)
@@ -61,12 +62,24 @@ public class RouletteController : MonoBehaviour
 	private const uint TIME_RANDOM_MAX = 150;   //ルーレット時間をランダムに決める際の上限値
 	private const uint TIME_WAIT = 100;//ルーレット後、次のルーレット開始までの待ち時間
 
+	private readonly string[] MASU_NAME =
+		{   "Fault",
+			"1Step",
+			"2Step",
+			"3Step",
+			"Coin10EventStock+1",
+			"Coin20EventStock+1",
+			"Coin50EventStock+1"
+		};
+
+
 	/* 変数実体定義													*/
 	private MasuInfoStruct[] MasuInfo;
 
 	private RequestInfoStruct Request;
 
 	private SugorokuController SugorokuControllerInstance;
+	private CoinEventStockManager CoinEventStockManagerInstance;
 
 	private int RouletteOnMasuIdThisCycle;//今周期に光らせるマスのID
 	private int RouletteOnMasuIdBeforeCycle;//前周期で光らせたマスのID
@@ -75,12 +88,13 @@ public class RouletteController : MonoBehaviour
 	private uint WaitTimer;//ルーレット終了後、次のルーレット開始までの待ち時間を保持するタイマー
 	private int ExcludedMasuCounter;//除外されたマスの数を数えるカウンタ
 	private bool[] ExcludedMasuList;//除外されたマスリスト(trueが除外されている)
-	private bool PermitRouletteRequest;//ルーレット要求許可フラグ(RouletteStockControllerに見せるやつ。trueが許可、falseが禁止)
+	private bool RouletteIsReadyOk;//ルーレット準備OKフラグ(RouletteStockControllerに見せるやつ。これがfalseだとルーレット要求できない)
 
 	// Start is called before the first frame update
 	void Start()
     {
 		SugorokuControllerInstance = GameObject.Find("SugorokuMasu").GetComponent<SugorokuController>();
+		CoinEventStockManagerInstance = GameObject.Find("EnterCoinGate").GetComponent<CoinEventStockManager>();
 
 		generateStructInstance();		//各構造体のインスタンス生成
 
@@ -96,8 +110,9 @@ public class RouletteController : MonoBehaviour
 		{
 			ExcludedMasuList[i] = false;
 		}
-		PermitRouletteRequest = true;//初期時はルーレット要求許可
+		RouletteIsReadyOk = true;//初期時はルーレット要求許可
 
+		resetDisplayStateByExclude();//初期時は除外用表示はしない
 	}
 
     // Update is called once per frame
@@ -133,7 +148,8 @@ public class RouletteController : MonoBehaviour
 		for (int masu = NUM_MASU_FIRST; masu < NUM_MASU_MAX; masu++)
 		{
 			initMasuInfoNameOnObject(masu);		//NameOnObjectの初期化
-			initMasuInfoNameOffObject(masu);	//NameOffObjectの初期化
+			initMasuInfoNameOffObject(masu);    //NameOffObjectの初期化
+			initMasuInfoNameExcludeObject(masu);//NameExcludeObjectの初期化
 			initMasuInfoActionState(masu);		//ActionStateの初期化
 			initMasuInfoDisplayState(masu);		//DisplayStateの初期化
 			initMasuInfoExcluded(masu);			//Excludedの初期化
@@ -233,6 +249,11 @@ public class RouletteController : MonoBehaviour
 		}
 
 		MasuInfo[masu].NameOffObject = obj;
+	}
+	/* MasuInfoNameExcludeObjectの初期化	*/
+	private void initMasuInfoNameExcludeObject(int masu)
+	{
+		MasuInfo[masu].NameExcludeObject = GameObject.Find(MASU_NAME[masu] + "EXCLUDE");
 	}
 	//==================================================//
 	/* Requestの各メンバを初期化する						*/
@@ -567,13 +588,14 @@ public class RouletteController : MonoBehaviour
 			ClearRouletteRequest();//ルーレット要求をクリアする
 			setWaitRequest();//待ち要求セット
 			SugorokuControllerInstance.JudgeSugorokuStart(getRouletteResultMasuName());//すごろくにルーレット結果を渡す
+			CoinEventStockManagerInstance.JudgeRouletteResultIsCoinEventStock(getRouletteResultMasuName());//コイン放出イベントストックにルーレット結果を渡す
 			Debug.Log("ルーレット結果"+getRouletteResultMasuName()+"を渡した");
 		}
 
 		if((Request.Wait==true) && (WaitTimer <= 0))//待ち状態が終わったら
 		{
 			clearWaitRequest();//待ち要求をクリア
-			PermitRouletteRequest = true;//ルーレット要求を許可
+			RouletteIsReadyOk = true;//ルーレット要求を許可
 			clearExcludedMasuCounter();//除外マスをクリア
 		}
 	}
@@ -593,7 +615,7 @@ public class RouletteController : MonoBehaviour
 	{
 		Request.Roulette = true;
 		setRouletteTimer();//ルーレット時間の設定
-		PermitRouletteRequest = false;//ルーレット要求禁止(RouletteStockControllerから待ち状態が終わるまでは要求できないようにするため)
+		RouletteIsReadyOk = false;//ルーレット要求禁止(RouletteStockControllerから待ち状態が終わるまでは要求できないようにするため)
 	}
 	public void ClearRouletteRequest()
 	{
@@ -621,15 +643,17 @@ public class RouletteController : MonoBehaviour
 		if (ExcludedMasuCounter < NUM_EXCLUDE_MAX)
 		{
 			ExcludedMasuCounter++;
+			settingDisplayStateByExclude();
 		}
 	}
 	private void clearExcludedMasuCounter()
 	{
 		ExcludedMasuCounter = 0;
+		resetDisplayStateByExclude();//除外用の表示状態を解除
 	}
-	public bool GetPermitRouletteRequest()
+	public bool GetRouletteIsReadyOk()
 	{
-		return PermitRouletteRequest;
+		return RouletteIsReadyOk;
 	}
 	private string getRouletteResultMasuName()
 	{	/* ルーレット結果のマス名(OnMasu名)を返す	*/
@@ -656,5 +680,79 @@ public class RouletteController : MonoBehaviour
 	private void setTurnOnTimer()
 	{
 		TurnOnTimer = TIME_TURN_ON;
+	}
+	//==================================================//
+	/* 除外用の表示設定									*/
+	//==================================================//
+	private void resetDisplayStateByExclude()//除外用の表示状態を解除する
+	{
+		for(int masu = NUM_MASU_FIRST; masu<NUM_MASU_MAX; masu++)
+		{
+			MasuInfo[masu].NameExcludeObject.SetActive(false);//除外用planeを非表示
+			setActiveByMasuDisplayState(masu);//点灯、消灯用は表示状態による
+		}
+	}
+	private void settingDisplayStateByExclude()//除外による表示状態の設定
+	{
+		for (int masu = NUM_MASU_FIRST; masu < NUM_MASU_MAX; masu++)
+		{
+			string name = MasuInfo[masu].NameOnObject.name;
+
+			/* 除外する(表示状態を更新するマス)を検索し、表示状態の設定をする	*/
+			switch (ExcludedMasuCounter)
+			{
+				case 0:
+					/* 除外マスカウンタが0 = マスの除外なし	*/
+					break;
+				case 1:
+					/* 除外マスカウンタが1なら1すすむマスを除外	*/
+					if (name == "1StepON")//ON、OFFどちらでもいい(1すすむマスだと判別できれば)
+					{
+						outputByExcludeDsiplayState(masu);//表示状態の反映
+					}
+					break;
+				case 2:
+					/* 除外マスカウンタが2なら2すすむマスも除外	*/
+					if ((name == "1StepON") || (name == "2StepON"))
+					{
+						outputByExcludeDsiplayState(masu);//表示状態の反映
+					}
+					break;
+				case 3:
+					/* 除外マスカウンタが3ならコイン50イベントストック+1マスも除外	*/
+					if ((name == "1StepON") || (name == "2StepON")
+						|| (name == "Coin50EventStock+1ON"))
+					{
+						outputByExcludeDsiplayState(masu);//表示状態の反映
+					}
+					break;
+				case 4:
+					/* 除外マスカウンタが4ならコイン20イベントストック+1マスも除外	*/
+					if ((name == "1StepON") || (name == "2StepON")
+						|| (name == "Coin50EventStock+1ON") || (name == "Coin20EventStock+1ON"))
+					{
+						outputByExcludeDsiplayState(masu);//表示状態の反映
+					}
+					break;
+				case 5:
+					/* 除外マスカウンタが5ならコイン10イベントストック+1マスも除外	*/
+					if ((name == "1StepON") || (name == "2StepON")
+						|| (name == "Coin50EventStock+1ON") || (name == "Coin20EventStock+1ON")
+						|| (name == "Coin10EventStock+1ON"))
+					{
+						outputByExcludeDsiplayState(masu);//表示状態の反映
+					}
+					break;
+				default:    //それ以外の値のときは何もしない
+					break;
+			}
+		}
+	}
+	private void outputByExcludeDsiplayState(int masu)//除外による表示状態の反映
+	{
+		MasuInfo[masu].DisplayState = OFF;
+		MasuInfo[masu].NameExcludeObject.SetActive(true);//除外用planeを表示
+		MasuInfo[masu].NameOnObject.SetActive(false);//点灯用planeを非表示
+		MasuInfo[masu].NameOffObject.SetActive(false);//消灯用planeを非表示
 	}
 }
