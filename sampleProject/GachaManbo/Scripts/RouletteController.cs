@@ -572,9 +572,17 @@ public class RouletteController : MonoBehaviour
 	/* 出力処理											*/
 	//==================================================//
 	private void setActiveByMasuDisplayState(int masu)
-	{	/* DisplayStateはNameONを基準に点灯/消灯としているためNameOFFへの出力は反転させればよい	*/
-		MasuInfo[masu].NameOnObject.SetActive(MasuInfo[masu].DisplayState);//NameOnObjectへの出力
-		MasuInfo[masu].NameOffObject.SetActive(!MasuInfo[masu].DisplayState);//NameOffObjectへの出力
+	{
+		if (MasuInfo[masu].Excluded != true)//除外マスでなければ出力
+		{
+			/* DisplayStateはNameONを基準に点灯/消灯としているためNameOFFへの出力は反転させればよい	*/
+			MasuInfo[masu].NameOnObject.SetActive(MasuInfo[masu].DisplayState);//NameOnObjectへの出力
+			MasuInfo[masu].NameOffObject.SetActive(!MasuInfo[masu].DisplayState);//NameOffObjectへの出力
+		}
+		else//除外マスであれば
+		{
+			//SetActiveしない(してしまうと、点灯or消灯用planeと除外用planeの2つが同時に表示される状況になり、確実に除外マスを前面に表示できないため)
+		}
 	}
 	//==================================================//
 	/* 各状態終了後の処理									*/
@@ -688,8 +696,17 @@ public class RouletteController : MonoBehaviour
 	{
 		for(int masu = NUM_MASU_FIRST; masu<NUM_MASU_MAX; masu++)
 		{
-			MasuInfo[masu].NameExcludeObject.SetActive(false);//除外用planeを非表示
-			setActiveByMasuDisplayState(masu);//点灯、消灯用は表示状態による
+			MasuInfo[masu].NameExcludeObject.SetActive(false);//除外用planeを非表示(この処理も下のif文に入れてしまうと初期化時に非表示にできない)
+			MasuInfo[masu].Excluded = false;//除外を解除
+			if (MasuInfo[masu].Excluded == true)//除外されてるマスなら(限定しないと全マスを消灯にしてしまいルーレットで止まったマスも消灯になってしまう)
+			{
+				MasuInfo[masu].DisplayState = false;//除外されてたマスを消灯に戻す
+			}
+			else//除外されてるマスじゃないなら
+			{
+				//なにもしない
+			}
+			setActiveByMasuDisplayState(masu);//出力
 		}
 	}
 	private void settingDisplayStateByExclude()//除外による表示状態の設定
