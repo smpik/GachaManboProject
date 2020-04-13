@@ -9,7 +9,7 @@ public class PusherController : MonoBehaviour
 	private Vector3 PosStartPusher;//Pusherの初期位置(オフセットに用いる)
 	private Vector3 PosPusher;  //Pusherの現在地
 
-	private const float PUSHER_AMPLITUDE = 0.17f;//Pusherのピストン運動の振幅(もともと0.33f
+	private const float PUSHER_AMPLITUDE = 0.1f;//Pusherのピストン運動の振幅(もともと0.33f
 
     // Start is called before the first frame update
     void Start()

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - tag_Pole
   - tag_Coin
+  - tag_GuidanceStick
   layers:
   - Default
   - TransparentFX

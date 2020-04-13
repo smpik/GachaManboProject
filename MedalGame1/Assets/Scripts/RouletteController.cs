@@ -80,6 +80,7 @@ public class RouletteController : MonoBehaviour
 
 	private SugorokuController SugorokuControllerInstance;
 	private CoinEventStockManager CoinEventStockManagerInstance;
+	private UIController UIControllerInstance;
 
 	private int RouletteOnMasuIdThisCycle;//今周期に光らせるマスのID
 	private int RouletteOnMasuIdBeforeCycle;//前周期で光らせたマスのID
@@ -95,6 +96,7 @@ public class RouletteController : MonoBehaviour
     {
 		SugorokuControllerInstance = GameObject.Find("SugorokuMasu").GetComponent<SugorokuController>();
 		CoinEventStockManagerInstance = GameObject.Find("EnterCoinGate").GetComponent<CoinEventStockManager>();
+		UIControllerInstance = GameObject.Find("Main Camera").GetComponent<UIController>();
 
 		generateStructInstance();		//各構造体のインスタンス生成
 
@@ -562,6 +564,11 @@ public class RouletteController : MonoBehaviour
 		Request.Roulette = true;
 		setRouletteTimer();//ルーレット時間の設定
 		RouletteIsReadyOk = false;//ルーレット要求禁止(RouletteStockControllerから待ち状態が終わるまでは要求できないようにするため)
+
+		if (UIControllerInstance.GetActiveStateExcludeCanvas() == true)//ルーレット開始時に除外キャンバスを表示しているなら
+		{//除外設定をした後のルーレット開始時ということなら、非表示にする。
+			UIControllerInstance.SetActiveExcludeCanvas(false);
+		}
 	}
 	public void ClearRouletteRequest()
 	{

@@ -17,7 +17,7 @@ public class CreditManager : MonoBehaviour
     {
 		Credit = NUM_CREDIT_DEFAULT;
 
-		CoinCreditText = GameObject.Find("CoinCreditText").GetComponent<Text>();
+		CoinCreditText = GameObject.Find("CoinCreditValueText").GetComponent<Text>();
 
 		CoinCreditText.text = Credit.ToString();
 	}

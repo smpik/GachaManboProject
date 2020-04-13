@@ -28,6 +28,9 @@ public class CoinSoundController : MonoBehaviour
 			SoundManager soundManagerInstance = GameObject.Find("AudioPlayer").GetComponent<SoundManager>();
 			soundManagerInstance.PlaySoundCoinHit();//再生要求
 			Destroy(GetComponent<CoinSoundController>());//このスクリプトを削除
+		}else if(collision.gameObject.tag == "tag_GuidanceStick")//GuidencaStickと衝突→鳴らさない、削除しない
+		{
+			//なにもしない
 		}
 	}
 }

@@ -121,6 +121,7 @@ public class SugorokuController : MonoBehaviour
 
 	private CoinEventStockManager CoinEventStockManager;
 	private CoinEventController CoinEventController;
+	private UIController UIController;
 
 	//==============================================================================//
 	//	初期化処理																	//
@@ -147,6 +148,7 @@ public class SugorokuController : MonoBehaviour
 
 		CoinEventStockManager = GameObject.Find("EnterCoinGate").GetComponent<CoinEventStockManager>();
 		CoinEventController = GameObject.Find("EnterCoinGate").GetComponent<CoinEventController>();
+		UIController = GameObject.Find("Main Camera").GetComponent<UIController>();
 	}
 	/* 各構造体のインスタンス生成	*/
 	private void generateStructInstance()
@@ -639,7 +641,7 @@ public class SugorokuController : MonoBehaviour
 					break;
 				case "Chance"://次アクションはなし
 					setSugorokuIsReadyOk();//すごろく準備OKフラグをセット
-					Debug.Log("除外キャンバス要求");//除外キャンバス表示要求
+					UIController.SetActiveExcludeCanvas(true);//除外キャンバス表示要求
 					break;
 				case "Goal":
 					CoinEventController.JackpotRequest();//ジャックポット要求
