@@ -43,6 +43,7 @@ public class CoinEventStockManager : MonoBehaviour
 
 		generateInstance();
 		initCoinEventStockLampInfo();
+		initCoinEventStockLampDisplayState();
 	}
 	/* インスタンス生成	*/
 	private void generateInstance()
@@ -63,6 +64,13 @@ public class CoinEventStockManager : MonoBehaviour
 				CoinEventStockLampInfo[coinEventId, lamp].DisplayState = OFF;//初期時の表示状態は消灯
 			}
 		}
+	}
+	/* ランプの表示状態の初期化	*/
+	private void initCoinEventStockLampDisplayState()
+	{
+		outputCoinEventStockLampDisplayState(COIN_EVENT_ID.COIN_EVENT_PATTERN_0);
+		outputCoinEventStockLampDisplayState(COIN_EVENT_ID.COIN_EVENT_PATTERN_1);
+		outputCoinEventStockLampDisplayState(COIN_EVENT_ID.COIN_EVENT_PATTERN_2);
 	}
 	//==============================================================================//
 	//	private関数																	//
@@ -123,7 +131,6 @@ public class CoinEventStockManager : MonoBehaviour
 		CoinEventStock[(int)id]++;//ストック+1
 		judgeRequestNecessity(id);
 		updateCoinEventStockLampDisplayState(id);//ストックランプの表示状態の更新
-		Debug.Log("コイン放出イベントパターン" + id + "のストック：現在" + CoinEventStock[(int)id]);
 	}
 	public void JudgeRouletteResultIsCoinEventStock(string rouletteResult)
 	{/* ルーレット結果がストック+1マスか	*/

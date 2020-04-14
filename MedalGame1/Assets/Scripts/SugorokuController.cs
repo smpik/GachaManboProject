@@ -122,6 +122,7 @@ public class SugorokuController : MonoBehaviour
 	private CoinEventStockManager CoinEventStockManager;
 	private CoinEventController CoinEventController;
 	private UIController UIController;
+	private AdMobReward AdMobReward;
 
 	//==============================================================================//
 	//	初期化処理																	//
@@ -132,6 +133,7 @@ public class SugorokuController : MonoBehaviour
 
 		initMasuInfo();                 //各マスの情報初期化
 		initRequest();                  //RequestInfoの初期化
+		initDisplayState();				//表示状態の初期化(GameObjectの表示状態を初期化する)
 
 		SugorokuNowPosition = NUM_MASU_FIRST;
 		FlagMoveIsFinished = false;
@@ -149,6 +151,7 @@ public class SugorokuController : MonoBehaviour
 		CoinEventStockManager = GameObject.Find("EnterCoinGate").GetComponent<CoinEventStockManager>();
 		CoinEventController = GameObject.Find("EnterCoinGate").GetComponent<CoinEventController>();
 		UIController = GameObject.Find("Main Camera").GetComponent<UIController>();
+		AdMobReward = GameObject.Find("AdManager").GetComponent<AdMobReward>();
 	}
 	/* 各構造体のインスタンス生成	*/
 	private void generateStructInstance()
@@ -197,6 +200,16 @@ public class SugorokuController : MonoBehaviour
 		Request.Flash = false;
 		Request.OutAction = false;
 		Request.GoalAction = false;
+	}
+	/* 各マスの表示状態の初期化(消灯をGameObjectに反映させる)	*/
+	private void initDisplayState()
+	{
+		MasuInfo[NUM_MASU_FIRST].DisplayState = true;//STARTマスは最初から点灯
+
+		for(int masu=NUM_MASU_FIRST;masu<NUM_MASU_MAX;masu++)
+		{
+			setActiveByMasuDisplayState(masu);
+		}
 	}
 	//==============================================================================//
 	//	Update処理																	//
@@ -641,7 +654,10 @@ public class SugorokuController : MonoBehaviour
 					break;
 				case "Chance"://次アクションはなし
 					setSugorokuIsReadyOk();//すごろく準備OKフラグをセット
-					UIController.SetActiveExcludeCanvas(true);//除外キャンバス表示要求
+					if(AdMobReward.IsRewardReady()==true)//広告の準備ができていれば
+					{
+						UIController.SetActiveExcludeCanvas(true);//除外キャンバス表示要求
+					}
 					break;
 				case "Goal":
 					CoinEventController.JackpotRequest();//ジャックポット要求

@@ -113,6 +113,7 @@
     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\RewardedAdClient.cs" />
     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\Utils.cs" />
     <Compile Include="Assets\Scripts\AdMobBanner.cs" />
+    <Compile Include="Assets\Scripts\AdMobReward.cs" />
     <Compile Include="Assets\Scripts\CoinEventController.cs" />
     <Compile Include="Assets\Scripts\CoinEventStockManager.cs" />
     <Compile Include="Assets\Scripts\CoinRecieverController.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Assets\Scripts\debugCode.cs" />
     <Compile Include="Assets\Scripts\EnterCoin.cs" />
     <Compile Include="Assets\Scripts\EnterCoinGuidanceStickController.cs" />
+    <Compile Include="Assets\Scripts\LightController.cs" />
     <Compile Include="Assets\Scripts\PusherController.cs" />
     <Compile Include="Assets\Scripts\RouletteController.cs" />
     <Compile Include="Assets\Scripts\RouletteStockManager.cs" />

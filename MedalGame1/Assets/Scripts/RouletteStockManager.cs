@@ -35,6 +35,7 @@ public class RouletteStockManager : MonoBehaviour
 
 		generateInstance();
 		initRouletteStockLampInfo();
+		outputRouletteLampDisplayState();// ストックランプの表示状態の初期化
 	}
 	/* インスタンス生成	*/
 	private void generateInstance()
@@ -51,7 +52,6 @@ public class RouletteStockManager : MonoBehaviour
 			RouletteStockLampInfo[lamp].DisplayState = OFF;//初期時の表示状態は消灯
 		}
 	}
-
 	//==============================================================================//
 	//	Update処理																	//
 	//==============================================================================//

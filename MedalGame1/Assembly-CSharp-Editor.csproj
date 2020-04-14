@@ -322,6 +322,18 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="Google.IOSResolver_v1.2.130.0">
+      <HintPath>C:/work/MedalGame1/Assets/PlayServicesResolver/Editor/Google.IOSResolver_v1.2.130.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.JarResolver_v1.2.130.0">
+      <HintPath>C:/work/MedalGame1/Assets/PlayServicesResolver/Editor/Google.JarResolver_v1.2.130.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandler">
+      <HintPath>C:/work/MedalGame1/Assets/PlayServicesResolver/Editor/Google.VersionHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandlerImpl_v1.2.130.0">
+      <HintPath>C:/work/MedalGame1/Assets/PlayServicesResolver/Editor/Google.VersionHandlerImpl_v1.2.130.0.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>C:/work/MedalGame1/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
@@ -336,18 +348,6 @@
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>C:/work/MedalGame1/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.IOSResolver_v1.2.130.0">
-      <HintPath>C:/work/MedalGame1/Assets/PlayServicesResolver/Editor/Google.IOSResolver_v1.2.130.0.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.JarResolver_v1.2.130.0">
-      <HintPath>C:/work/MedalGame1/Assets/PlayServicesResolver/Editor/Google.JarResolver_v1.2.130.0.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.VersionHandler">
-      <HintPath>C:/work/MedalGame1/Assets/PlayServicesResolver/Editor/Google.VersionHandler.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.VersionHandlerImpl_v1.2.130.0">
-      <HintPath>C:/work/MedalGame1/Assets/PlayServicesResolver/Editor/Google.VersionHandlerImpl_v1.2.130.0.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.14f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
