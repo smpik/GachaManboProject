@@ -129,6 +129,7 @@
     <Compile Include="Assets\Scripts\RouletteStockManager.cs" />
     <Compile Include="Assets\Scripts\SensorController.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\StartButtonController.cs" />
     <Compile Include="Assets\Scripts\SugorokuController.cs" />
     <Compile Include="Assets\Scripts\UIController.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
