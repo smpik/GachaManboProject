@@ -114,6 +114,7 @@
     <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\Utils.cs" />
     <Compile Include="Assets\Scripts\AdMobBanner.cs" />
     <Compile Include="Assets\Scripts\AdMobReward.cs" />
+    <Compile Include="Assets\Scripts\CheckerController.cs" />
     <Compile Include="Assets\Scripts\CoinEventController.cs" />
     <Compile Include="Assets\Scripts\CoinEventStockManager.cs" />
     <Compile Include="Assets\Scripts\CoinRecieverController.cs" />
