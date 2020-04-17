@@ -16,12 +16,6 @@ public class UIController : MonoBehaviour
 		SetActiveAdChoiceCanvas(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 	public void SetActiveExcludeCanvas(bool displayRequest)
 	{
 		ExcludeCanvas.SetActive(displayRequest);

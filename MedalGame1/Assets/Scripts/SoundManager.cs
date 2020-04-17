@@ -15,12 +15,6 @@ public class SoundManager : MonoBehaviour
 		AudioPlayer = GameObject.Find("AudioPlayer").GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 	public void PlaySoundCoinHit()
 	{
 		AudioPlayer.PlayOneShot(SoundCoinHit, 0.5f);

@@ -537,7 +537,6 @@ public class RouletteController : MonoBehaviour
 			setWaitRequest();//待ち要求セット
 			SugorokuControllerInstance.JudgeSugorokuStart(getRouletteResultMasuName());//すごろくにルーレット結果を渡す
 			CoinEventStockManagerInstance.JudgeRouletteResultIsCoinEventStock(getRouletteResultMasuName());//コイン放出イベントストックにルーレット結果を渡す
-			Debug.Log("ルーレット結果"+getRouletteResultMasuName()+"を渡した");
 		}
 
 		if((Request.Wait==true) && (WaitTimer <= 0))//待ち状態が終わったら

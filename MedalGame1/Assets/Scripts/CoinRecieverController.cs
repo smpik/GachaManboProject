@@ -11,12 +11,6 @@ public class CoinRecieverController : MonoBehaviour
 		CreditManagerInsatance = GameObject.Find("EnterCoinGate").GetComponent<CreditManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 	public void OnCollisionEnter(Collision collision)
 	{
 		Destroy(collision.gameObject);//衝突したコインオブジェクトを削除

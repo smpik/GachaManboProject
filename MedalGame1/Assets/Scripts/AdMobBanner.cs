@@ -16,12 +16,6 @@ public class AdMobBanner : MonoBehaviour
 		RequestBanner();
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 	private void RequestBanner()
 	{
 

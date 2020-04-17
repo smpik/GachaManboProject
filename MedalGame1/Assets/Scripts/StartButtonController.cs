@@ -12,12 +12,6 @@ public class StartButtonController : MonoBehaviour
 		TitleCanvas = GameObject.Find("TitleCanvas");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 	/* StartButtonがタップされた時の処理	*/
 	public void TapStartButton()
 	{

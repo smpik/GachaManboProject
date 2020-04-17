@@ -5,18 +5,14 @@ using UnityEngine;
 public class EnterCoin : MonoBehaviour
 {
 	private CreditManager CreditManagerInstance;
+	private GameObject CoinPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
 		CreditManagerInstance = GameObject.Find("EnterCoinGate").GetComponent<CreditManager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+		CoinPrefab = (GameObject)Resources.Load("Prefabs/Coin");
+	}
 
 	public void TapButtonCoinEnter()
 	{
@@ -28,7 +24,6 @@ public class EnterCoin : MonoBehaviour
 	}
 	public void createCoin()
 	{
-		GameObject coin = (GameObject)Resources.Load("Prefabs/Coin");
-		Instantiate(coin);
+		Instantiate(CoinPrefab);
 	}
 }

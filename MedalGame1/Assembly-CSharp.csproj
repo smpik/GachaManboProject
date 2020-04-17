@@ -125,6 +125,7 @@
     <Compile Include="Assets\Scripts\EnterCoinGuidanceStickController.cs" />
     <Compile Include="Assets\Scripts\LightController.cs" />
     <Compile Include="Assets\Scripts\PusherController.cs" />
+    <Compile Include="Assets\Scripts\ResolusionController.cs" />
     <Compile Include="Assets\Scripts\RouletteController.cs" />
     <Compile Include="Assets\Scripts\RouletteStockManager.cs" />
     <Compile Include="Assets\Scripts\SensorController.cs" />

@@ -47,12 +47,6 @@ public class AdMobReward : MonoBehaviour
 		UIControllerInstance = GameObject.Find("Main Camera").GetComponent<UIController>();
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
-
-	}
-
 	/********************************************************************************/
 	/* 関数名	: 動画再生															*/
 	/* 備考		: 動画を見るボタンタップで呼ばれる。									*/
