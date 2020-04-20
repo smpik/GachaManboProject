@@ -113,7 +113,7 @@ MonoBehaviour:
   m_MinSize: {x: 1021, y: 448}
   m_MaxSize: {x: 26016, y: 10024}
   vertical: 1
-  controlID: 57
+  controlID: 65
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_MinSize: {x: 1021, y: 448}
   m_MaxSize: {x: 26016, y: 10024}
   vertical: 0
-  controlID: 58
+  controlID: 66
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_MinSize: {x: 306, y: 448}
   m_MaxSize: {x: 8006, y: 8048}
   vertical: 1
-  controlID: 179
+  controlID: 166
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -462,9 +462,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.10414545, y: 0.14815874, z: -0.85833955}
+    m_Target: {x: 0, y: 1.0749999, z: -0.285}
     speed: 2
-    m_Value: {x: 0.10414545, y: 0.14815874, z: -0.85833955}
+    m_Value: {x: 0, y: 1.0749999, z: -0.285}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -496,9 +496,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0.12997237, y: 0.04846488, z: -0.0063607153, w: 0.99031204}
   m_Size:
-    m_Target: 3.1394563
+    m_Target: 0.41117796
     speed: 2
-    m_Value: 3.1394563
+    m_Value: 0.41117796
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -812,7 +812,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 56dfffff74dfffff58e2ffffbcfbffff
+      m_ExpandedIDs: 4eecffff6cecffff50efffffbcfbffff062e0000882f0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -917,18 +917,18 @@ MonoBehaviour:
     m_ExpandedIDs: ffffffff000000003c250000ba270000f2290000262a00006c2a0000762a0000942a0000002b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: EnterCoin
-      m_OriginalName: EnterCoin
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 9442
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 13}
     m_SearchString: 
