@@ -6,7 +6,7 @@ public class EnterCoinGateSensorController : MonoBehaviour
 {
 	private Vector3 PosStartRay;
 	private Vector3 PosEndRay;
-	private const float LengthRay = 0.304f;//Rayを飛ばす長さ
+	private const float LengthRay = 0.05f;//Rayを飛ばす長さ
 
 	// Start is called before the first frame update
 	void Start()

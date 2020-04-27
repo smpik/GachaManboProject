@@ -22,7 +22,7 @@ public class PusherController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 		PosPusher = Pusher.transform.position;//Puserの現在地を取得
 

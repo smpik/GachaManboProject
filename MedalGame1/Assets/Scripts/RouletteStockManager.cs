@@ -68,7 +68,6 @@ public class RouletteStockManager : MonoBehaviour
 			{   //ルーレット要求が許可されているなら
 				RouletteController.SetRouletteRequest();//ルーレット要求
 				decrementRouletteStock();//要求したのでストックを減らす
-				Debug.Log("ルーレット要求");
 			}
 		}
     }
