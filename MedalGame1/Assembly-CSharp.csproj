@@ -122,6 +122,7 @@
     <Compile Include="Assets\Scripts\CreditManager.cs" />
     <Compile Include="Assets\Scripts\debugCode.cs" />
     <Compile Include="Assets\Scripts\EnterCoin.cs" />
+    <Compile Include="Assets\Scripts\EnterCoinGateSensorController.cs" />
     <Compile Include="Assets\Scripts\EnterCoinGuidanceStickController.cs" />
     <Compile Include="Assets\Scripts\LightController.cs" />
     <Compile Include="Assets\Scripts\PusherController.cs" />
