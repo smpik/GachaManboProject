@@ -6,6 +6,7 @@ public class SoundManager : MonoBehaviour
 {
 	public AudioClip SoundCoinHit;//コイン衝突時の音
 	public AudioClip SoundSensored;//コイン検出時の音
+	public AudioClip SoundCoinFall;//コイン落下時(獲得時)の音
 
 	private AudioSource AudioPlayer;//音を再生するオブジェクト
 
@@ -22,5 +23,9 @@ public class SoundManager : MonoBehaviour
 	public void PlaySoundSensored()
 	{
 		AudioPlayer.PlayOneShot(SoundSensored, 0.5f);
+	}
+	public void PlaySoundCoinFall()
+	{
+		AudioPlayer.PlayOneShot(SoundCoinFall, 1f);
 	}
 }

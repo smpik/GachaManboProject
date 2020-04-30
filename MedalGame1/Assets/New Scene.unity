@@ -28513,6 +28513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundCoinHit: {fileID: 8300000, guid: 8c35e12d7d0fde34ab6b9ce3515fa401, type: 3}
   SoundSensored: {fileID: 8300000, guid: 17d4d76fe30b1634fa2cddf92f005a9e, type: 3}
+  SoundCoinFall: {fileID: 8300000, guid: 0660f49a519a8db48990aeb8c9cbf238, type: 3}
 --- !u!1 &1821040447
 GameObject:
   m_ObjectHideFlags: 0
