@@ -26,6 +26,6 @@ public class SoundManager : MonoBehaviour
 	}
 	public void PlaySoundCoinFall()
 	{
-		AudioPlayer.PlayOneShot(SoundCoinFall, 1f);
+		AudioPlayer.PlayOneShot(SoundCoinFall, 2f);
 	}
 }
