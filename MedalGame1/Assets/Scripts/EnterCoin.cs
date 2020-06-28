@@ -15,7 +15,7 @@ public class EnterCoin : MonoBehaviour
     {
 		CreditManagerInstance = GameObject.Find("EnterCoinGate").GetComponent<CreditManager>();
 		EnterCoinGateSensorControllerInstance = GameObject.Find("EnterCoinGateSensor").GetComponent<EnterCoinGateSensorController>();
-		CoinPrefab = (GameObject)Resources.Load("Prefabs/Coin");
+		CoinPrefab = (GameObject)Resources.Load("Prefabs/NewCoin");//コインprefabを決定
 	}
 
 	public void TapButtonCoinEnter()

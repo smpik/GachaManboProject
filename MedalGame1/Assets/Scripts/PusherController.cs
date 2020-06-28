@@ -27,7 +27,7 @@ public class PusherController : MonoBehaviour
 		PosPusher = Pusher.transform.position;//Puserの現在地を取得
 
 		//Pusherのz座標 = (振幅　* sin関数) + Pusherの初期位置のz座標
-		PosPusher = new Vector3(PosPusher.x, PosPusher.y, (PUSHER_AMPLITUDE * Mathf.Sin(Time.time))+PosStartPusher.z );
+		PosPusher = new Vector3(PosPusher.x, PosPusher.y, (PUSHER_AMPLITUDE * Mathf.Sin(Time.time)) + PosStartPusher.z);
 
 		RbPusher.MovePosition(PosPusher);
 	}

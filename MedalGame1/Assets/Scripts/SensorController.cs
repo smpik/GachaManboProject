@@ -7,8 +7,8 @@ public class SensorController : MonoBehaviour
 	private Vector3 PosStartRay;
 	private Vector3 PosEndRay;
 	private const float LengthRay = 0.05f;//Rayを飛ばす長さ
-	private const string UNSENSORED_COIN = "Coin(Clone)";
-	private const string SENSORED_COIN = "Coin(Sensored)";
+	private const string UNSENSORED_COIN = "NewCoin(Clone)";
+	private const string SENSORED_COIN = "NewCoin(Sensored)";
 
 	private SoundManager SoundManager;
 	private RouletteStockManager RouletteStockManager;

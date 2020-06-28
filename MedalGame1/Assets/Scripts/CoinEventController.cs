@@ -22,11 +22,13 @@ public class CoinEventController : MonoBehaviour
 
 	private EnterCoin EnterCoin;
 	private SugorokuController SugorokuController;
+	private EnterCoinGateSensorController EnterCoinGateSensorController;
 	private Text JackpotText;
 	private COIN_PAYOUT_STATE CoinPayoutState;//コイン放出状態
 	private COIN_PAYOUT_EVENT CoinPayoutEvent;//コイン放出イベント(状態遷移のイベント)
 	private bool CoinPayoutRequest;//コイン放出要求
 	private bool CoinEventIsReadyOk;//コインイベント準備OKフラグ
+	private bool IsCoinCreateSuccuessed;//コイン生成が成功したか
 
 	private int CoinGenerateWaitTimer;//コイン生成待ち時間を保持するタイマー
 	private int RestCoins;//放出コインの残り枚数
@@ -39,9 +41,11 @@ public class CoinEventController : MonoBehaviour
     {
 		EnterCoin = GameObject.Find("Main Camera").GetComponent<EnterCoin>();
 		SugorokuController = GameObject.Find("SugorokuMasu").GetComponent<SugorokuController>();
+		EnterCoinGateSensorController = GameObject.Find("EnterCoinGateSensor").GetComponent<EnterCoinGateSensorController>();
 		JackpotText = GameObject.Find("JackpotText").GetComponent<Text>();
 
 		CoinEventIsReadyOk = true;
+		IsCoinCreateSuccuessed = true;
 		ResetJackpot();
     }
 
@@ -63,7 +67,10 @@ public class CoinEventController : MonoBehaviour
 	//==================================================//
 	private void decideInput()
 	{
-		countTimerForCoinGenerateWait();
+		if(IsCoinCreateSuccuessed)//前回のコイン生成に成功していれば(失敗してるならもう一回生成にtryできるようINPUTデータの更新をしない)
+		{
+			countTimerForCoinGenerateWait();
+		}
 	}
 	private void countTimerForCoinGenerateWait()
 	{//コイン生成待ちタイマーの更新
@@ -85,7 +92,6 @@ public class CoinEventController : MonoBehaviour
 		{
 			setCoinGenerateWaitTimer();//タイマ再セット
 		}
-
 	}
 	private void countDownRestCoins()
 	{
@@ -135,7 +141,7 @@ public class CoinEventController : MonoBehaviour
 				break;
 			case COIN_PAYOUT_EVENT.COIN_GENERATE:
 				//状態遷移はなし
-				EnterCoin.createCoin();//コイン生成
+				requestCreateCoin();//コイン生成
 				break;
 			case COIN_PAYOUT_EVENT.PAYOUT_END:
 				CoinPayoutState = COIN_PAYOUT_STATE.DEFAULT;//通常状態へ遷移
@@ -143,6 +149,18 @@ public class CoinEventController : MonoBehaviour
 				break;
 			default:
 				break;
+		}
+	}
+	private void requestCreateCoin()
+	{
+		if(EnterCoinGateSensorController.IsCoinNothing())
+		{
+			IsCoinCreateSuccuessed = true;
+			EnterCoin.createCoin();//コイン生成
+		}
+		else
+		{
+			IsCoinCreateSuccuessed = false;
 		}
 	}
 	//==================================================//

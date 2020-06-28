@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CreditManager : MonoBehaviour
 {
-	private const int NUM_CREDIT_DEFAULT = 50;
+	private const int NUM_CREDIT_DEFAULT = 100;
 	private int Credit;
 
 	private Text CoinCreditText;
