@@ -10,7 +10,7 @@ public class AdMobReward : MonoBehaviour
 	/********************************************************************************/
 	/* 内部変数																		*/
 	/********************************************************************************/
-	private const string adUnitId = "ca-app-pub-3940256099942544/5224354917";//テスト用id:ca-app-pub-3940256099942544/5224354917
+	private const string adUnitId = "ca-app-pub-6961891305270618/3638851475";//"ca-app-pub-6961891305270618/3638851475";//テスト用id:ca-app-pub-3940256099942544/5224354917
 
 	private const int NUM_EXCLUDE_MAX = 5;//リワード用、除外マスの最大数
 	/********************************************************************************/
@@ -105,6 +105,7 @@ public class AdMobReward : MonoBehaviour
 		Debug.Log("HandleRewardedAdClosed event received");
 		//一時停止解除
 		UIControllerInstance.SetActiveExcludeCanvas(false);//除外用キャンバスを閉じる(この関数コール時(動画途中で閉じた後)は再度動画を再生できないため)
+		CreateAndLoadRewardedAd();//広告のリロード
 	}
 
 	/********************************************************************************/
@@ -140,5 +141,20 @@ public class AdMobReward : MonoBehaviour
 		}
 
 		return ret;
+	}
+
+	/*
+	 * リロード
+	 */
+	public void CreateAndLoadRewardedAd()
+	{
+		this.rewardedAd = new RewardedAd(adUnitId);
+
+		this.rewardedAd.OnAdLoaded += HandleRewardedAdLoaded;
+		this.rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;
+		this.rewardedAd.OnAdClosed += HandleRewardedAdClosed;
+
+		AdRequest request = new AdRequest.Builder().Build();
+		this.rewardedAd.LoadAd(request);
 	}
 }

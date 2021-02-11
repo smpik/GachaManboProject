@@ -9,7 +9,7 @@ public class AdMobBanner : MonoBehaviour
     void Start()
     {
 		//アプリID、テスト用はca-app-pub-3940256099942544~3347511713
-		string appId = "ca-app-pub-3940256099942544~3347511713";
+		string appId = "ca-app-pub-6961891305270618~4261991409";// "ca-app-pub-6961891305270618~4261991409";
 
 		MobileAds.Initialize(appId);
 
@@ -20,7 +20,7 @@ public class AdMobBanner : MonoBehaviour
 	{
 
 		// 広告ユニットID テスト用は:ca-app-pub-3940256099942544/6300978111
-		string adUnitId = "ca-app-pub-3940256099942544/6300978111";
+		string adUnitId = "ca-app-pub-6961891305270618/9294772332";// "ca-app-pub-6961891305270618/9294772332";
 
 		// Create a 320x50 banner at the top of the screen.
 		BannerView bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Top);

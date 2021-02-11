@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CheckerController : MonoBehaviour
 {
-	private GameObject Checker;//チェッカー
+	public GameObject Checker;//チェッカー。処理負荷削減のため、インスペクタから設定する
+
 
 	private bool Clockwise;//回転方向
 	private float CheckerAngle;//内部で保持するチェッカーの角度(直接角度を取得して使うと0=360になったりして難しいから
@@ -15,7 +16,7 @@ public class CheckerController : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-		Checker = GameObject.Find("Checker");
+		//Checker = GameObject.Find("Checker");
 
 		Checker.transform.localEulerAngles = new Vector3(0, 0, 0);///チェッカーの角度を初期化
 		CheckerAngle = 0f;

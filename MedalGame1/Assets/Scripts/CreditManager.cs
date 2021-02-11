@@ -9,6 +9,7 @@ public class CreditManager : MonoBehaviour
 	private int Credit;
 
 	private Text CoinCreditText;
+	private UIController UIControllerInstance;
 
 	//==============================================================================//
 	//	初期化処理																	//
@@ -18,6 +19,7 @@ public class CreditManager : MonoBehaviour
 		Credit = NUM_CREDIT_DEFAULT;
 
 		CoinCreditText = GameObject.Find("CoinCreditValueText").GetComponent<Text>();
+		UIControllerInstance = GameObject.Find("Main Camera").GetComponent<UIController>();
 
 		CoinCreditText.text = Credit.ToString();
 	}
@@ -34,6 +36,12 @@ public class CreditManager : MonoBehaviour
 	{
 		Credit--;//CREDITを-1
 		CoinCreditText.text = Credit.ToString();//UIに出力
+
+		/* コインがなくなった時の処理 */
+		if (Credit == 0)
+		{
+			UIControllerInstance.SetActiveMoreCreditCanvas(true);	//コインゲットキャンバスを表示する
+		}
 	}
 	/* コインを投入できるか判定(CREDITが0なら投入できない)	*/
 	public bool IsCoinEnterPermited()
@@ -46,5 +54,14 @@ public class CreditManager : MonoBehaviour
 		}
 
 		return ret;
+	}
+
+	/**
+	 * コイン増やす処理(コインゲットリワード視聴後に呼ばれる)
+	 */
+	 public void AddManyCredit(int addValue)
+	{
+		Credit += addValue;//CREDITを増やす
+		CoinCreditText.text = Credit.ToString();//UIに出力
 	}
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PusherController : MonoBehaviour
 {
-	private GameObject Pusher;
-	private Rigidbody RbPusher; //PusherのRigidbody
+	public GameObject Pusher;	//処理負荷削減のため、インスペクタから設定する
+	public Rigidbody RbPusher; //PusherのRigidbody。処理負荷削減のため、インスペクタから設定する
 
 	private Vector3 PosStartPusher;//Pusherの初期位置(オフセットに用いる)
 	private Vector3 PosPusher;  //Pusherの現在地
@@ -15,8 +15,8 @@ public class PusherController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		Pusher = GameObject.Find("Pusher");
-		RbPusher = Pusher.GetComponent<Rigidbody>(); //PusherのRigidbodyを取得
+		//Pusher = GameObject.Find("Pusher");
+		//RbPusher = Pusher.GetComponent<Rigidbody>(); //PusherのRigidbodyを取得
 		PosStartPusher = Pusher.transform.position;//Pusherの初期値を取得
 		PosPusher = PosStartPusher;//Pusherの現在地を初期化
     }
